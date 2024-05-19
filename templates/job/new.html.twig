@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold d-inline-block text-primary">New job</h6>
+                        <h6 class="float-right d-inline-block">
+                            <a href="{{ path('app_job_index') }}">back to list</a>
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <p>
+                                {{ form_label(form.name) }} : {{ form_widget(form.name) }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Save">
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}

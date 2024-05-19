@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold d-inline-block text-primary">Show payslip</h6>
+                        <h6 class="float-right d-inline-block">
+                            <a href="{{ path('app_pay_slip_index') }}">back to list</a>
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <tr>
+                                    <td>Salary</td>
+                                    <td>
+                                        <a href="{{ path('app_salary_show', {'id': pay_slip.salary.id}) }}">
+                                            {{ pay_slip.salary }}
+                                        </a>      
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Start period</td>
+                                    <td>{{ pay_slip.startPeriod|date('d/m/Y') }}</td>
+                                </tr>
+                                <tr>
+                                    <td>End period</td>
+                                    <td>{{ pay_slip.endPeriod|date('d/m/Y') }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Pay at</td>
+                                    <td>{{ pay_slip.payAt|date('d/m/Y') }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Type</td>
+                                    <td>{{ pay_slip.type }}</td>
+                                </tr>
+                                {% if pay_slip.salary.isScoreImpacted == true %}
+                                    <tr>
+                                        <td>Amount salary</td>
+                                        <td class="text-right">
+                                            <span class="font-weight-bold">
+                                                {% if score >= setting.endIntervalScore %}
+                                                    <span class="font-weight-bold">
+                                                        {{ (pay_slip.amountSalary + setting.amountScore)|round(2, 'floor') }}
+                                                    </span>
+                                                {% elseif score <= setting.startIntervalScore %}
+                                                    <span class="font-weight-bold">
+                                                        {{ (pay_slip.amountSalary - setting.amountScore)|round(2, 'floor') }}
+                                                    </span>
+                                                {% endif %}
+                                            </span>
+                                            <span>
+                                                {% if score >= setting.endIntervalScore or score <= setting.startIntervalScore %}
+                                                    ({{ pay_slip.amountSalary|round(2, 'floor') }})</span>
+                                                {% else %}
+                                                    {{ pay_slip.amountSalary|round(2, 'floor') }}</span>
+                                                {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Score's impact</td>
+                                        <td class="text-right">
+                                            {% if score >= setting.endIntervalScore %}
+                                                <span class="font-weight-bold">+ {{ setting.amountScore }}</span>
+                                            {% elseif score <= setting.startIntervalScore %}
+                                                <span class="font-weight-bold">- {{ setting.amountScore }}</span>
+                                            {% endif %}
+                                            ({{ score|round(2,'floor') }})
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td>Amount salary</td>
+                                        <td class="font-weight-bold text-right">{{ pay_slip.amountSalary|round(2, 'floor') }}</td>
+                                    </tr>
+                                {% endif %}
+                                <tr>
+                                    <td>Amount employee</td>
+                                    <td class="font-weight-bold text-right">{{ pay_slip.amountEmploye|round(2, 'floor') }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold d-inline-block text-primary">Payslip line</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <tr>
+                                    <td>Code</td>
+                                    <td>Description</td>
+                                    <td>Base</td>
+                                    <td>Rate salary</td>
+                                    <td>Amount salary</td>
+                                    <td>Rate employe</td>
+                                    <td>Amount employe</td>
+                                </tr>
+                                {% for pay_slip_line in pay_slip.paySlipLine %}
+                                    <tr>
+                                        <td>{{ pay_slip_line.code }}</td>
+                                        <td>{{ pay_slip_line.description }}</td>
+                                        <td class="text-right">{{ pay_slip_line.base }}</td>
+                                        <td class="text-right">{{ pay_slip_line.rateSalary }}</td>
+                                        <td class="text-right font-weight-bold">{{ pay_slip_line.amountSalary|round(2, 'floor') }}</td>
+                                        <td class="text-right">{{ pay_slip_line.rateEmploye }}</td>
+                                        <td class="text-right font-weight-bold">{{ pay_slip_line.amountEmploye|round(2, 'floor') }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ include('pay_slip/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

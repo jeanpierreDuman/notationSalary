@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container-fluid">
+    {{ form_start(form) }}
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold d-inline-block text-primary">New salary</h6>
+            <h6 class="float-right d-inline-block">
+                <a href="{{ path('app_salary_index') }}">back to list</a>
+            </h6>
+        </div>
+        <div class="card-body">
+            <table>
+                <tr>
+                    <td>{{ form_label(form.firstname)}}</td>
+                    <td class="pl-3">{{ form_widget(form.firstname) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.lastname)}}</td>
+                    <td class="pl-3">{{ form_widget(form.lastname) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.company)}}</td>
+                    <td class="pl-3">{{ form_widget(form.company) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.job)}}</td>
+                    <td class="pl-3">{{ form_widget(form.job) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.socialSecurity)}}</td>
+                    <td class="pl-3">{{ form_widget(form.socialSecurity) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.startAt)}}</td>
+                    <td class="pl-3">{{ form_widget(form.startAt) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.seniority)}}</td>
+                    <td class="pl-3">{{ form_widget(form.seniority) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.isScoreImpacted) }}</td>
+                    <td class="pl-3">{{ form_widget(form.isScoreImpacted) }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+</div>
+{% endblock %}

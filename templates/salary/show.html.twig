@@ -1,0 +1,146 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold d-inline-block text-primary">Show salary</h6>
+						<h6 class="float-right d-inline-block">
+							<a href="{{ path('app_salary_index') }}">back to list</a>
+						</h6>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+								<tr>
+									<th>Firstname</th>
+									<td>{{ salary.firstname }}</td>
+								</tr>
+								<tr>
+									<th>Lastname</th>
+									<td>{{ salary.lastname }}</td>
+								</tr>
+								<tr>
+									<th>Company</th>
+									<td>
+										{% if salary.company is not null %}
+											<a href="{{ path('app_company_show', {'id': salary.company.id}) }}">
+												{{ salary.company }}
+											</a>
+										{% else %}
+											-
+										{% endif %}
+									</td>
+								</tr>
+								<tr>
+									<th>Job</th>
+									<td>{{ salary.job }}</td>
+								</tr>
+								<tr>
+									<th>Social security</th>
+									<td>{{ salary.socialSecurity }}</td>
+								</tr>
+								<tr>
+									<th>Start at</th>
+									<td>{{ salary.startAt|date('d/m/Y') }}</td>
+								</tr>
+								<tr>
+									<th>Seniority</th>
+									<td>{{ salary.seniority }}</td>
+								</tr>
+								<tr>
+									<th>Payslip</th>
+									<td>{{ salary.paySlip|length }}</td>
+								</tr>
+								<tr>
+									<th>Is score impacted ?</th>
+									<td>
+										{% if salary.isScoreImpacted %}
+											<i class="fa fa-check"></i>
+										{% else %}
+											<i class="fa fa-times"></i>
+										{% endif %}
+									</td>
+								</tr>
+								<tr>
+									<th>Critical score</th>
+									<td>{{ criticalData.average|number_format(2, '.', ',') }}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				{{ include('salary/_delete_form.html.twig') }}
+			</div>
+			{% if criticals|length > 0 %}
+				<div class="col-md-8">
+					<div class="card shadow mb-4">
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold d-inline-block text-primary">Critical</h6>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+									<tr>
+										<td>Date</td>
+										<td>Notation</td>
+										<td>Description</td>
+									</tr>
+									{% for critical in criticals %}
+										<tr>
+											<td>{{ critical.date|date('d/m/Y H:i') }}</td>
+											<td>{{ critical.notation }}</td>
+											<td>{{ critical.description }}</td>
+										</tr>
+									{% endfor %}
+								</table>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row">
+			{% if timetables|length > 0 %}
+				{% for timetable in timetables %}
+					{% if timetable.timeTableLine|length > 0 %}
+						<div class="col-md-4">
+							<div class="card shadow mt-4 mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold d-inline-block text-primary">{{ timetable.name }}</h6>
+									<h6 class="float-right d-inline-block">
+										<a href="{{ path('app_time_table_edit', {'id': timetable.id}) }}">Edit</a>
+									</h6>
+								</div>
+								<div class="card-body">
+									<table class="table table-bordered">
+										<tr>
+											<td>Date start</td>
+											<td>Date end</td>
+										</tr>
+										{% for item in timetable.timeTableLine %}
+											<tr>
+												<td>{{ item.dateStart|date('d/m/Y H:i') }}</td>
+												<td>{{ item.dateEnd|date('d/m/Y H:i') }}</td>
+											</tr>
+										{% endfor %}
+									</table>
+								</div>
+							</div>
+						</div>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('css/index.css') }}">
+{% endblock %}

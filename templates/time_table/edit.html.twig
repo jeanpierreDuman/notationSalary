@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% form_theme form.timeTableLine 'form/time_table_timeTableLine_entry_widget.html.twig' %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold d-inline-block text-primary">Edit timetable</h6>
+                        <h6 class="float-right d-inline-block">
+                            <a href="{{ path('app_time_table_index') }}">back to list</a>
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            {{ form_start(form) }}
+                            <p>
+                                {{ form_label(form.name) }} : {{ form_widget(form.name) }}
+                            </p>
+                            <p>
+                                {{ form_label(form.salary) }} : {{ form_widget(form.salary) }}
+                            </p>
+                            <div class="font-weight-bold text-center" style="font-size: 30px;">
+                                <span class="add-item btn btn-primary">
+                                    <i class="fa fa-plus-circle"></i>
+                                </span>
+                                <span class="remove-item btn btn-danger">
+                                    <i class="fa fa-minus-circle"></i>
+                                </span>
+                            </div>
+                            <table class="table table-bordered mt-3">
+                                <tr>
+                                    <td class="col-md-1">Date start</td>
+                                    <td class="col-md-1">Date end</td>
+                                    <td class="col-md-1">Action</td>
+                                </tr>
+                                <tbody id="list-item-collection"
+                                    data-prototype="{{ form_widget(form.timeTableLine.vars.prototype)|e }}"
+                                    data-widget-tags="{{ '<li></li>'|e }}"
+                                    data-widget-counter="{{ form.timeTableLine|length }}">
+                                    {% for ttl in form.timeTableLine %}
+                                        <tr class="mb-2">
+                                            <td class="col-md-5">{{ form_widget(ttl.dateStart) }}</td>
+                                            <td class="col-md-5">{{ form_widget(ttl.dateEnd) }}</td>
+                                            <td class="col-md-2">
+                                                 <button class="btn btn-danger remove-cibling-item">
+                                                    <i class="fa fa-trash"></i>
+                                                 </button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                            {% if form.timeTableLine|length == 0 %}
+                                {{ form_widget(form.timeTableLine) }}
+                            {% endif %}
+
+                            <input type="submit" class="btn btn-primary" value="Save">
+
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/formCollection.js') }}"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+{% endblock %}

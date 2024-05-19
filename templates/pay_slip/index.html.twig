@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold d-inline-block text-primary">List of payslip</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <td>Salary</td>
+                            <th>Start period</th>
+                            <th>End period</th>
+                            <th>Pay at</th>
+                            <th>Type</th>
+                            <th>Amount salary</th>
+                            <th>Amount employee</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for pay_slip in pay_slips %}
+                            <tr>
+                                <td>{{ pay_slip.id }}</td>
+                                <td>
+                                    <a href="{{ path('app_salary_show', {'id': pay_slip.salary.id}) }}">
+                                        {{ pay_slip.salary }}
+                                    </a>      
+                                </td>
+                                <td>{{ pay_slip.startPeriod ? pay_slip.startPeriod|date('Y-m-d') : '' }}</td>
+                                <td>{{ pay_slip.endPeriod ? pay_slip.endPeriod|date('Y-m-d') : '' }}</td>
+                                <td>{{ pay_slip.payAt ? pay_slip.payAt|date('Y-m-d') : '' }}</td>
+                                <td>{{ pay_slip.type }}</td>
+                                <td class="text-right">{{ pay_slip.amountSalary|round(2, 'floor') }}</td>
+                                <td class="text-right">{{ pay_slip.amountEmploye|round(2, 'floor') }}</td>
+                                <td>
+                                    <a class="btn btn-info" href="{{ path('app_pay_slip_show', {'id': pay_slip.id}) }}">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a class="btn btn-warning"
+                                       href="{{ path('app_pay_slip_edit', {'id': pay_slip.id}) }}">
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <a class="btn btn-primary" href="{{ path('app_pay_slip_new') }}">new</a>
+    </div>
+{% endblock %}

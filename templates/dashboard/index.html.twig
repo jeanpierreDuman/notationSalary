@@ -1,0 +1,90 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Start interval score</h6>
+                    </div>
+                    <div class="card-body">
+                        <h5>{{ startIntervalScore }}</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">End interval score</h6>
+                    </div>
+                    <div class="card-body">
+                        <h5>{{ endIntervalScore }}</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Amount score</h6>
+                    </div>
+                    <div class="card-body">
+                        <h5>{{ amountScore }}</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Number of critical</h6>
+                    </div>
+                    <div class="card-body">
+                        <h5>{{ critics|length }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-4 col-lg-5">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Amount salary / Amount employee</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center font-weight-bold">
+                            <span>Total : {{ totalPaid }}</span>
+                        </div>
+                        <div class="chart-pie pt-4">
+                            <canvas id="myPieChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+    <span id="sumOfAccount" data-sum="{{ sumOfAccount }}"></span>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <!-- Page level plugins -->
+    <script src="{{ asset('sbadmin/vendor/chart.js/Chart.min.js') }}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{ asset('sbadmin/js/demo/chart-area-demo.js') }}"></script>
+    <script src="{{ asset('sbadmin/js/demo/chart-pie-demo.js') }}"></script>
+    <script src="{{ asset('sbadmin/js/demo/chart-bar-demo.js') }}"></script>
+{% endblock %}

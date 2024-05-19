@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold d-inline-block text-primary">Show announcement</h6>
+                <h6 class="float-right d-inline-block">
+                    <a href="{{ path('app_announcement_index') }}">back to list</a>
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <tr>
+                            <th>Company</th>
+                            <td>{{ announcement.company }}</td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td>{{ announcement.job }}</td>
+                        </tr>
+                        <tr>
+                            <th>Place</th>
+                            <td>{{ announcement.place }}</td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td>{{ announcement.description }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        {{ include('announcement/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

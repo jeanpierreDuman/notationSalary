@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+
+        <!--
+        <div class="card bg-success text-white shadow mb-3">
+            <div class="card-body">
+                Il y a une erreur
+            </div>
+        </div>
+        -->
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold d-inline-block text-primary">List of company</h6>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Zipcode</th>
+                            <th>City</th>
+                            <th>Siret</th>
+                            <th style="width: 120px;">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for company in companies %}
+                            <tr>
+                                <td>{{ company.id }}</td>
+                                <td>{{ company.name }}</td>
+                                <td>{{ company.address }}</td>
+                                <td>{{ company.zipcode }}</td>
+                                <td>{{ company.city }}</td>
+                                <td>{{ company.siret }}</td>
+                                <td>
+                                    <a class="btn btn-info" href="{{ path('app_company_show', {'id': company.id}) }}">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a class="btn btn-warning" href="{{ path('app_company_edit', {'id': company.id}) }}">
+                                        <i class="fa fa-pencil-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="7">no records found</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <a class="btn btn-primary" href="{{ path('app_company_new') }}">new</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold d-inline-block text-primary">New company</h6>
+                        <h6 class="float-right d-inline-block">
+                            <a href="{{ path('app_company_index') }}">back to list</a>
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <table>
+                            <tr>
+                                <td>{{ form_label(form.name)}}</td>
+                                <td class="pl-3">{{ form_widget(form.name) }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form_label(form.address)}}</td>
+                                <td class="pl-3">{{ form_widget(form.address) }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form_label(form.zipcode)}}</td>
+                                <td class="pl-3">{{ form_widget(form.zipcode) }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form_label(form.city)}}</td>
+                                <td class="pl-3">{{ form_widget(form.city) }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form_label(form.siret)}}</td>
+                                <td class="pl-3">{{ form_widget(form.siret) }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+            </div>
+
+
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

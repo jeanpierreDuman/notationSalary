@@ -1,0 +1,11 @@
+{% block _time_table_timeTableLine_entry_widget %}
+    <tr class="mb-2">
+        <td class="col-md-5">{{ form_widget(form.dateStart) }}</td>
+        <td class="col-md-5">{{ form_widget(form.dateEnd) }}</td>
+        <td class="col-md-2">
+            <button class="btn btn-danger remove-cibling-item">
+                <i class="fa fa-trash"></i>
+            </button>
+        </td>
+    </tr>
+{% endblock %}

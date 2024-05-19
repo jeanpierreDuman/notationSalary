@@ -1,0 +1,16 @@
+{% block _pay_slip_paySlipLine_entry_widget %}
+    <tr class="mb-2">
+        <td class="col-md-1">{{ form_widget(form.code) }}</td>
+        <td class="col-md-4">{{ form_widget(form.description) }}</td>
+        <td class="col-md-2">{{ form_widget(form.base) }}</td>
+        <td class="col-md-1">{{ form_widget(form.rateSalary) }}</td>
+        <td class="col-md-1">{{ form_widget(form.amountSalary) }}</td>
+        <td class="col-md-1">{{ form_widget(form.rateEmploye) }}</td>
+        <td class="col-md-1">{{ form_widget(form.amountEmploye) }}</td>
+        <td class="col-md-1">
+            <button class="btn btn-danger remove-cibling-item">
+                <i class="fa fa-trash"></i>
+            </button>
+        </td>
+    </tr>
+{% endblock %}

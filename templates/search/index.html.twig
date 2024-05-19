@@ -1,0 +1,232 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if salaries|length == 0 and companies|length == 0 and jobs|length == 0 and timetables|length == 0 %}
+        <div class="container-fluid">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold d-inline-block text-primary">Seach</h6>
+                </div>
+                <div class="card-body">
+                    <p class="text-center">
+                        Nothing was found
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="container-fluid">
+            {% if salaries|length != 0 %}
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold d-inline-block text-primary">Salary</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Company</th>
+                                    <th>Job</th>
+                                    <th>Social security</th>
+                                    <th>Score impacted ?</th>
+                                    <th style="width: 120px;">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for salary in salaries %}
+                                    <tr>
+                                        <td>{{ salary.id }}</td>
+                                        <td>
+                                            <a href="{{ path('app_salary_show', {'id': salary.id}) }}">
+                                                {{ salary }}
+                                            </a>   
+                                        </td>
+                                        <td>
+                                            {% if salary.company is not null %}
+                                                <a href="{{ path('app_company_show', {'id': salary.company.id}) }}">{{ salary.company }}</a>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if salary.job is not null %}
+                                                <a href="{{ path('app_job_show', {'id': salary.job.id}) }}">{{ salary.job }}</a>
+                                            {% else %}
+                                                -
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ salary.socialSecurity }}</td>
+                                        <td>
+                                            {% if salary.isScoreImpacted %}
+                                                <i class="fa fa-check"></i>
+                                            {% else %}
+                                                <i class="fa fa-times"></i>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-info" href="{{ path('app_salary_show', {'id': salary.id}) }}">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a class="btn btn-warning" href="{{ path('app_salary_edit', {'id': salary.id}) }}">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="4">no records found</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if companies|length != 0 %}
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold d-inline-block text-primary">Company</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Address</th>
+                                    <th>Zipcode</th>
+                                    <th>City</th>
+                                    <th>Siret</th>
+                                    <th style="width: 120px;">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for company in companies %}
+                                    <tr>
+                                        <td>{{ company.id }}</td>
+                                        <td>{{ company.name }}</td>
+                                        <td>{{ company.address }}</td>
+                                        <td>{{ company.zipcode }}</td>
+                                        <td>{{ company.city }}</td>
+                                        <td>{{ company.siret }}</td>
+                                        <td>
+                                            <a class="btn btn-info" href="{{ path('app_company_show', {'id': company.id}) }}">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a class="btn btn-warning" href="{{ path('app_company_edit', {'id': company.id}) }}">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="7">no records found</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if jobs|length != 0 %}
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold d-inline-block text-primary">Job</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <td>Name</td>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for job in jobs %}
+                                        <tr>
+                                            <td>{{ job.id }}</td>
+                                            <td>{{ job.name }}</td>
+                                            <td>
+                                                    <a class="btn btn-info" href="{{ path('app_job_show', {'id': job.id}) }}">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                    <a class="btn btn-warning"
+                                                        href="{{ path('app_job_edit', {'id': job.id}) }}">
+                                                        <i class="fa fa-pencil-alt"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="3">no records found</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if timetables|length != 0 %}
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold d-inline-block text-primary">Timetable</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Salary</th>
+                                    <th>Number</th>
+                                    <th style="width: 120px;">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for time_table in timetables %}
+                                    <tr>
+                                        <td>{{ time_table.id }}</td>
+                                        <td>{{ time_table.name }}</td>
+                                        <td>
+                                            <a href="{{ path('app_salary_show', {'id': time_table.salary.id}) }}">
+                                                {{ time_table.salary }}
+                                            </a>                                        
+                                        </td>
+                                        <td>{{ time_table.timeTableLine|length }}</td>
+                                        <td>
+                                            <a class="btn btn-info" href="{{ path('app_time_table_show', {'id': time_table.id}) }}">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a class="btn btn-warning" href="{{ path('app_time_table_edit', {'id': time_table.id}) }}">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5">no records found</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock %}

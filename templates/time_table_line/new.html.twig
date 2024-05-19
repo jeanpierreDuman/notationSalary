@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TimetableItem{% endblock %}
+
+{% block body %}
+    <h1>Create new TimetableItem</h1>
+
+    {{ include('timetable_item/_form.html.twig') }}
+
+    <a href="{{ path('app_timetable_item_index') }}">back to list</a>
+{% endblock %}

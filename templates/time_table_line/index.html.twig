@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TimetableItem index{% endblock %}
+
+{% block body %}
+    <h1>TimetableItem index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DateStart</th>
+                <th>DateEnd</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for timetable_item in timetable_items %}
+            <tr>
+                <td>{{ timetable_item.id }}</td>
+                <td>{{ timetable_item.dateStart ? timetable_item.dateStart|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ timetable_item.dateEnd ? timetable_item.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_timetable_item_show', {'id': timetable_item.id}) }}">show</a>
+                    <a href="{{ path('app_timetable_item_edit', {'id': timetable_item.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_timetable_item_new') }}">Create new</a>
+{% endblock %}

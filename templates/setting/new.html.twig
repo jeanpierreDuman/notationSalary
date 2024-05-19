@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container-fluid">
+        {{ form_start(form) }}
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold d-inline-block text-primary">New setting</h6>
+                <h6 class="float-right d-inline-block">
+                    <a href="{{ path('app_setting_show') }}">back to list</a>
+                </h6>
+            </div>
+            <div class="card-body">
+                <table>
+                    <tr>
+                        <td>{{ form_label(form.startIntervalScore)}}</td>
+                        <td class="pl-3">{{ form_widget(form.startIntervalScore) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.endIntervalScore)}}</td>
+                        <td class="pl-3">{{ form_widget(form.endIntervalScore) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.amountScore)}}</td>
+                        <td class="pl-3">{{ form_widget(form.amountScore) }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
