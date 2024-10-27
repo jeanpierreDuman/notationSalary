@@ -1,3 +1,7 @@
+## Goals
+
+- Increase or dicrease amount of salary by user notation
+
 ## Framework or language
 
 - Symfony
